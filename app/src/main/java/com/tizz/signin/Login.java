@@ -1,7 +1,9 @@
 package com.tizz.signin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private Button yes;
     private TextView reg;
     private String name,psw;
+    private int isStu=-1;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +41,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view){
         if(view==reg){
-            Intent intent=new Intent(Login.this,Register.class);
-            startActivity(intent);
+            showSingleAlertDialog(view);
         }
         else if(view==yes){
             if(inputHasNull()){
@@ -53,6 +56,50 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         if(name.equals("") || psw.equals(""))
             return true;
         return false;
+    }
+
+    public void showSingleAlertDialog(View view){
+        isStu=-1;
+        final String items[]={"学生","老师"};
+        AlertDialog.Builder alertBuilder=new AlertDialog.Builder(this);
+        alertBuilder.setTitle("请选择身份");
+        alertBuilder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which==0)
+                    isStu=0;
+                else if(which==1)
+                    isStu=1;
+            }
+        });
+        alertBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(isStu==0){
+                    alertDialog.dismiss();
+                    Intent intent=new Intent(Login.this, StuRegister.class);
+                    startActivity(intent);
+                }
+                else if(isStu==1){
+                    alertDialog.dismiss();
+                    Intent intent=new Intent(Login.this,TeacherRegister.class);
+                    startActivity(intent);
+                }
+                else if(isStu==-1){
+                    alertDialog.show();
+                    Toast.makeText(Login.this,"请先选择身份！",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        alertBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog=alertBuilder.create();
+        alertDialog.show();
     }
 
 }
