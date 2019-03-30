@@ -1,4 +1,4 @@
-package com.tizz.signin;
+package com.tizz.signin.utils;
 
 import android.icu.text.SimpleDateFormat;
 

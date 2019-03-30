@@ -1,4 +1,4 @@
-package com.tizz.signin;
+package com.tizz.signin.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.tizz.signin.R;
 
 public class Setting extends AppCompatActivity implements View.OnClickListener {
 

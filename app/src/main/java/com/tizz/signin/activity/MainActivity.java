@@ -1,4 +1,4 @@
-package com.tizz.signin;
+package com.tizz.signin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.tizz.signin.R;
+import com.tizz.signin.utils.TimeUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void handleMessage(Message message){
             switch (message.what){
                 case UPDATE_TIME:
-                    currentTime.setText("当前时间:"+TimeUtils.getSysTime());
+                    currentTime.setText("当前时间:"+ TimeUtils.getSysTime());
                     break;
                 default:
                     break;
